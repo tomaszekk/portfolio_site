@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> My Portfolio Site </title>
+    <!--adding css stylesheet, js files, fonts, jquery  -->
+    <!-- css -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/rwd.css">
+    <!-- dynamic part incl. js -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/app.js"></script>
+    <!-- font def. -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500" rel="stylesheet" type="text/css">
+
+
+  </head>
+  <body>
+    <header class="header">
+      <div class="header__inner">
+        <img src="img/tk_logo.png" class="header__logo" alt="Header logo picture.">
+        <div class="header__inner__desc">
+          <h1 class="header__title">Tomasz Konopka</h1>
+          <h2 class="header__subtitle">Portfolio Site</h2>
+        </div>
+
+
+        <!-- here Im working on menu navigation -->
+        <div class="header__menu" id="menu">
+          <div class="icon">
+            <div class="hamburger">
+              <a href="#">
+              </a>
+            </div>
+          </div>
+
+
+
+        </div>
+      </div>
+
+    </header>
+    <!--navigation site  -->
+    <nav id="menu_nav" class="nav">
+      <ul class="nav__list">
+        <li class="nav__item"><a href="#aboutme">About Me</a></li>
+        <li class="nav__item"><a href="#projects">Portfolio</a></li>
+        <li class="nav__item"><a href="#">Contact Me</a></li>
+        <li class="nav__item"><a href="#">Social</a></li>
+      </ul>
+    </nav>
+    <main>
+      <section class="content">
+        <section class="main__subject">
+          <div class="main__promo">
+            <div class="main__description">
+              <h2>Follow your heart ...</h2>
+            </div>
+          </div>
+        </section>
+        <section class="section__head" id="projects">
+          <div class="projects__header">
+            <h1 class="section__desc">
+              Below you can see my projects
+            </h1>
+            <hr class="section__line">
+          </div>
+          <div class="content__projects">
+            <article class="project">
+            <div class="picture__heading">
+              <h3>Project 1</h3>
+            </div>
+            <div class="project__picture">
+              <img src="img/project_1_large.jpg" alt="Project 1 picture">
+            </div>
+            </article>
+            <article class="project">
+            <div class="picture__heading">
+              <h3>Project 2</h3>
+            </div>
+            <div class="project__picture">
+              <img src="img/project_2_large.jpg" alt="Project 2 picture">
+            </div>
+            </article>
+            <article class="project">
+            <div class="picture__heading">
+              <h3>Project 3</h3>
+            </div>
+            <div class="project__picture">
+              <img src="img/project_3_large.jpg" alt="Project 3 picture">
+            </div>
+            </article>
+          </div>
+
+        </section>
+        <section class="section__head" id="aboutme">
+          <div class="aboutme__header">
+            <h1 class="section__desc">
+              About me
+            </h1>
+            <hr class="section__line">
+          </div>
+          <div class="aboutme_content">
+            <div class="aboutme__img">
+              <img id="my_img" src="img/about_me_large.jpg" alt="My picture">
+            </div>
+            <div class="aboutme_article">Hi! I'm Tomasz and I'm from Poland. I'm over 30s and I'm living in Warsaw.
+              <br>In my spare time I like programing (Front End Dev.) and also developing my artistic skills by acting in theatre.
+
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
+
+
+    <footer>
+      <div class="footer">
+        <ul class="footer__list">
+          <li>Made by: TK 2018 </li>
+          <li>Version v.1.0</li>
+          <li><a href="#">Write to me</a></li>
+        </ul>
+
+      </div>
+
+    </footer>
+
+  </body>

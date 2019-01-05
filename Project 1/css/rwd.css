@@ -1,0 +1,266 @@
+.content, .content__projects {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+@media screen and (max-width: 220px){
+  body, html, footer, h1, h2, h3 {
+    font-size: 14px;
+    line-height: 1.1em;
+  }
+  .nav {
+    z-index: 10;
+    background-color: #fff;
+    width: 100%;
+    position: absolute;
+    -webkit-transform: translate(-9999px, 0);
+    transform: translate(-9999px, 0);
+    transition: transform 0.3s ease;
+  }
+  .nav.open {
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0);
+  }
+   .nav[class=open]  {
+    -webkit-transform: translate(0, 200px);
+    transform: translate(0, 200px);
+  }
+
+  .nav__item {
+    display: list-item;
+    border-bottom: 1px solid #E0E0E0;
+    width: 100%;
+    text-align: right;
+  }
+  .main__subject {
+    width: 100%;
+    order: 0;
+  }
+  .main__description {
+    font-size: 0.55em;
+  }
+
+  .aboutme__img {
+    min-width: 100%;
+    margin-left: 0px;
+  }
+  .aboutme_article {
+
+    overflow: hidden;
+    float: none;
+    padding: 0.3em 0.1em;
+    margin-left: 0.2em;
+  }
+
+}
+
+@media screen and (min-width:221px) and (max-width: 570px){
+
+  body, html, footer, h1, h2, h3 {
+    font-size: 15px;
+    line-height: 1.1em;
+  }
+/* now im removing as i add 220-width - it should stay beacause it come back to general formatting */
+  .nav {
+    z-index: 10;
+    background-color: #fff;
+    width: 100%;
+    position: absolute;
+
+    -webkit-transform: translate(-9999px, 0);
+    transform: translate(-9999px, 0);
+
+    transition: transform 0.3s ease;
+  }
+  .nav.open {
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0);
+  }
+   .nav[class=open]  {
+    -webkit-transform: translate(0, 200px);
+    transform: translate(0, 200px);
+  }
+
+  .nav__item {
+    display: list-item;
+    border-bottom: 1px solid #E0E0E0;
+    width: 100%;
+    text-align: right;
+  }
+  .header__inner{
+    margin: auto;
+    width: 100%;
+  }
+  .header__inner__desc{
+
+  }
+  .main__subject {
+    width: 100%;
+    order: 0;
+  }
+  .main__description {
+    font-size: 0.55em;
+  }
+  .project {
+    width: 95%;
+    padding: 0.1em;
+    margin: 0.1em 0.1em;
+    margin: auto;
+  }
+  .aboutme__img {
+    width: 200px;
+    display: inline-block;
+    clear: left;
+    padding: 0 0.2em;
+  }
+  .aboutme_article {
+    overflow: auto;
+    padding: 0.3em 0.5em;
+    margin-left: 0.8em;
+    display: inline;
+  }
+}
+@media screen and (min-width: 570px) {
+ .header__logo {
+    height: 80px;
+  }
+  .header__menu {
+    display: none;
+  }
+  .header__title{
+
+  }
+  .header__inner {
+    width:100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .header__inner__desc {
+    font-size: 1.3em;
+    margin: 0 0 0.5em 2em;
+  }
+  .header__title {
+    margin-top: 0.6em;
+    padding-bottom: 0.2em;
+  }
+  .nav {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .nav__list {
+    text-align: center;
+}
+  .main__promo {
+    max-height: 500px;
+    width: auto;
+  }
+  .project {
+    width: 50%;
+    padding: 0 0.1em;
+    margin: 0em 0.1em;
+    margin: auto;
+  }
+  .main__description {
+    font-size: 0.6em;
+  }
+
+  .projects__header, .aboutme__header {
+    width: 96%;
+    margin: 0 0.8em;
+  }
+  .aboutme__img {
+    min-width: 33%;
+    padding: 0.6em 0;
+    margin-left: 1em;
+    display: inline-block;
+  }
+  .aboutme_article {
+    overflow: auto;
+    padding: 0 0.5em;
+    display: inline-block;
+  }
+
+}
+
+
+
+@media screen and (min-width: 620px) {
+  .nav {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .nav__item {
+    margin: 0 1em;
+  }
+  .nav__list {
+    text-align: center;
+
+  }
+  .project {
+    width: 49%;
+    padding: 0.2em;
+    /* margin: 0.4em 0; */
+    margin: auto;
+  }
+  .main__description {
+    font-size: 0.7em;
+  }
+
+}
+
+@media screen and (min-width: 730px){
+  .nav {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .nav__item {
+    margin: 0 2em;
+  }
+  .nav__list {
+    text-align: center;
+  }
+  .main__description {
+    font-size: 0.82em;
+  }
+  .project {
+    width: 48%;
+    padding: 0.1em;
+    margin: 0.1em auto;
+  }
+}
+
+@media screen and (min-width: 950px) {
+  .content, main, .header__inner, .nav, .footer, .main__promo {
+    width: 950px;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+  .main__subject {
+    width: 100%;
+    order: 0;
+  }
+
+  .aboutme {
+    width: 100%;
+    order: 3;
+  }
+  .project {
+    width: 33%;
+    padding: 0.1em 0.1em;
+    margin: 0.1em auto;
+  }
+  .projects__header, .aboutme__header {
+    width: 97%;
+    margin: 0 1em;
+  }
+  .nav__item {
+    margin: 0 3.5em;
+  }
+
+}
