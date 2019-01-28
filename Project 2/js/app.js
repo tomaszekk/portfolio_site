@@ -2,6 +2,19 @@
  * Create a list that holds all of your cards
  */
 
+ //initialization --TODO add to new function init!
+
+ //collection of open cards - only current!
+ //only 2 cards are open simultaneously!!!!
+ let currentOpenCards = [];
+
+ //collection of all open cards
+ let openCards = [];
+ //general counter
+ let count = 0;
+
+ let generalScore = document.querySelector(".moves");
+ generalScore.innerHTML = "0";
 
 /*
  * Display the cards on the page
@@ -38,44 +51,35 @@ function shuffle(array) {
  */
 
 
-//initialization --TODO add to new function init!
-//collection of open cards
-let openCards = [];
-let count = 0;
+
+
+
+//def. all all cards in DOM
 const allCards = document.querySelectorAll(".card");
 
 allCards.forEach(function(card) {
   card.addEventListener('click', function(){
 
-    // let open1stCard = openCards[0];
-    // let open2ndCard = openCards[1];
-
+    displayCard(card);
+    addCardToCollection(card);
     //not click one more time the open cards
-    if (!card.classList.contains("open", "show")){
-      displayCard(card);
-      addCard(card);
-      count += 1;
-      if (openCards.length == 2) {
-        if (openCards[0].innerHTML === openCards[1].innerHTML){
-          openCards[0].classList.add("match");
-          openCards[1].classList.add("match");
-          openCards=[];
-        } else {
-          setTimeout(function() {
-            openCards[0].classList.remove("open", "show");
-            openCards[1].classList.remove("open", "show");
-            openCards=[];
-          }, 1000)
-        }
-        console.log(openCards);
-      };
-    };
-
-
-
-    // console.log(open1stCard);
-    // console.log(open2ndCard);
+    if (currentOpenCards.length == 2) {
+      if (currentOpenCards[0].innerHTML === currentOpenCards[1].innerHTML){
+        matchCards(currentOpenCards[0], currentOpenCards[1]);
+      } else {
+        setTimeout(function() {
+        hideCards(currentOpenCards[0], currentOpenCards[1]);
+        removeCardFromCollection(card);
+        }, 500);
+      }
+//TODO: 1. nie mozna klikac na juz otwarta kartę
+//TODO: 2. nie mozna klikac na juz zmatchowane karty
+    }
+    console.log(openCards);
+    console.log(currentOpenCards);
+    count += 1;
     console.log(count);
+    generalScore.innerHTML = count;
   });
 
 });
@@ -86,12 +90,45 @@ function displayCard(card){
    card.classList.add("open", "show");
  };
 
+//function to add open card into the array (openCards)
+function addCardToCollection(card){
+  openCards.push(card);
+  currentOpenCards.push(card);
+}
+
+//function to remove open card from the array (openCards)
+function removeCardFromCollection(card){
+  openCards.push(card);
+  openCards.push(card);
+  currentOpenCards=[];
+}
+
+//function to hide hard
+function hideCards(card1, card2){
+  card1.classList.remove("open", "show");
+  card2.classList.remove("open", "show");
+  //card.classList.remove("open", "show");
+  currentOpenCards=[];
+}
+
+//do when two cards match
+function matchCards(card1, card2){
+  card1.classList.add("match");
+  card2.classList.add("match");
+  currentOpenCards=[];
+}
+
+function countScore(add){
+  return generalScore += add;
+}
   //add open card into listener
  //push card into collection of open cards
+/*
 function addCard(card){
   openCards.push(card);
+  currentOpenCards(card);
 };
-
+*/
 
 
 
