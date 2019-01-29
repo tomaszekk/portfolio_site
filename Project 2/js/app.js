@@ -13,8 +13,12 @@
  //general counter
  let count = 0;
 
+//show moves, points on the web
  let generalScore = document.querySelector(".moves");
  generalScore.innerHTML = "0";
+
+//show raking on the web
+ let ranking = document.querySelector(".stars");
 
 /*
  * Display the cards on the page
@@ -75,11 +79,16 @@ allCards.forEach(function(card) {
 //TODO: 1. nie mozna klikac na juz otwarta kartę
 //TODO: 2. nie mozna klikac na juz zmatchowane karty
     }
+    if (openCards.length == 15) {
+      endGame();
+    }
+    count += 1;
     console.log(openCards);
     console.log(currentOpenCards);
-    count += 1;
+
     console.log(count);
-    generalScore.innerHTML = count;
+
+    generalScore.innerHTML = Number(dispalyScore());
   });
 
 });
@@ -98,8 +107,8 @@ function addCardToCollection(card){
 
 //function to remove open card from the array (openCards)
 function removeCardFromCollection(card){
-  openCards.push(card);
-  openCards.push(card);
+  openCards.pop(card);
+  openCards.pop(card);
   currentOpenCards=[];
 }
 
@@ -118,8 +127,9 @@ function matchCards(card1, card2){
   currentOpenCards=[];
 }
 
-function countScore(add){
-  return generalScore += add;
+function dispalyScore(){
+  let generalScore;
+  return generalScore += 1;
 }
   //add open card into listener
  //push card into collection of open cards
@@ -129,6 +139,39 @@ function addCard(card){
   currentOpenCards(card);
 };
 */
+
+
+//endGame function
+//if all cards matched
+function endGame() {
+  // window.dialogArguments;
+  // //window.showModalDialog("modal.htm", null, "width=200,height=200,left=300,modal=yes,alwaysRaised=yes", null);
+  // // window.showModalDialog();
+  // window.open("modal.htm", null, "width=200,height=200,left=300,modal=yes,alwaysRaised=yes", null);
+  // alert
+  // window.returnValue="end of the game!";
+
+  //count stars li elements and convert them into asterix *
+  const countStars = (ranking.innerHTML.match(/<li>/g) || []).length;
+
+  if (confirm
+    (`
+    Congratulations! You win the game!
+    Your score is:  ${count} moves.
+    And your rating is: ${countStars}
+    Are you wish to play again?
+    `)) {
+    console.log("koniec gry");
+} else {
+    // Do nothing!
+}
+}
+
+
+
+
+
+
 
 
 
