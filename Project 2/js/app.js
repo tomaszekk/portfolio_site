@@ -16,9 +16,11 @@
 //show moves, points on the web
  let generalScore = document.querySelector(".moves");
  generalScore.innerHTML = "0";
+ 
 
 //show raking on the web
  let ranking = document.querySelector(".stars");
+
 
 /*
  * Display the cards on the page
@@ -79,6 +81,7 @@ allCards.forEach(function(card) {
 //TODO: 1. nie mozna klikac na juz otwarta kartę
 //TODO: 2. nie mozna klikac na juz zmatchowane karty
     }
+    ranking.innerHTML = calculateScore(count);
     if (openCards.length == 15) {
       endGame();
     }
@@ -140,6 +143,31 @@ function addCard(card){
 };
 */
 
+//function to calculate score
+function calculateScore(count){
+  let HTMLtext;
+  if (count < 20)
+   return HTMLtext=
+   `<li><i class="fa fa-star"></i></li>
+   <li><i class="fa fa-star"></i></li>
+   <li><i class="fa fa-star"></i></li>`;
+  else if (count >=20 && count <32) {
+    return HTMLtext = 
+    `<li><i class="fa fa-star"></i></li>
+    <li><i class="fa fa-star"></i></li>
+    <li><i class="fa fa-star-o"></i></li>`;
+  } else if (count>=32 && count <50) {
+    return HTMLtext = 
+    `<li><i class="fa fa-star"></i></li>
+    <li><i class="fa fa-star-o"></i></li>
+    <li><i class="fa fa-star-o"></i></li>`
+  } else {
+    return HTMLtext = 
+    `<li><i class="fa fa-star-o"></i></li>
+    <li><i class="fa fa-star-o"></i></li>
+    <li><i class="fa fa-star-o"></i></li>`
+  }
+}
 
 //endGame function
 //if all cards matched
@@ -152,7 +180,7 @@ function endGame() {
   // window.returnValue="end of the game!";
 
   //count stars li elements and convert them into asterix *
-  const countStars = (ranking.innerHTML.match(/<li>/g) || []).length;
+  const countStars = (ranking.innerHTML.match(/<i class="fa fa-star">/g) || []).length;
 
   if (confirm
     (`
