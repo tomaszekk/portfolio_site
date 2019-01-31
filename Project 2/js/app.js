@@ -1,21 +1,51 @@
 /*
  * Create a list that holds all of your cards
  */
+//// TODO: optymalizacja naliczania punktów, aby nie mozna bylo klinkac dwa razy w kartę, uporządkować program (funkcje, wywolania, zmienne etc.)
+
+ //collection of open cards - only current!
+ //only 2 cards are open simultaneously!!!!
+ //open last cards - only max. two collection [0], [1]
+  let currentOpenCards = [];
+
+  //collection of all open cards inc. last two plus all matched
+  let openCards = [];
+  //general counter
+  let count = 0;
+
+ //show moves, points on the web
+  let generalScore = document.querySelector(".moves");
+
+
+  //def. all all cards in DOM
+
+  let allCards = document.querySelectorAll(".card");
+
+ //show raking on the web
+  let ranking = document.querySelector(".stars");
 
  //initialization --TODO add to new function init!
  //function to generate cards on the deck with suffling cards
- function initGame(){
+ const cards = ["fa fa-diamond", "fa fa-diamond",
+ "fa fa-paper-plane-o", "fa fa-paper-plane-o",
+ "fa fa-anchor", "fa fa-anchor",
+ "fa fa-bolt", "fa fa-bolt",
+ "fa fa-cube", "fa fa-cube",
+ "fa fa-leaf", "fa fa-leaf",
+ "fa fa-bicycle", "fa fa-bicycle",
+ "fa fa-bomb", "fa fa-bomb"
+];
+const cardsDeck = document.querySelector(".deck");
+
+//start game = default init run functionality
+initGame();
+
+//function definition to initialize the game
+  //generate cards and apply addEventListener
+function initGame(){
 
   //definition of all card for the game
-  const cards = ["fa fa-diamond", "fa fa-diamond",
-  "fa fa-paper-plane-o", "fa fa-paper-plane-o",
-  "fa fa-anchor", "fa fa-anchor",
-  "fa fa-bolt", "fa fa-bolt",
-  "fa fa-cube", "fa fa-cube",
-  "fa fa-leaf", "fa fa-leaf",
-  "fa fa-bicycle", "fa fa-bicycle",
-  "fa fa-bomb", "fa fa-bomb"
-];
+
 
 //function to generate all cards into one element
 function generateCards(){
@@ -32,45 +62,51 @@ function generateCards(){
 
 //put cards into HTML
 //def. deck
-
-const cardsDeck = document.querySelector(".deck");
 cardsDeck.appendChild(generateCards());
 
+allCards = document.querySelectorAll(".card");
+
+//MAIN PROGRAMME!
+
+allCards.forEach(function(card) {
+card.addEventListener('click', respondToTheClick);
+}
+);
+
+//reset counter moves
+count = 0;
+generalScore.innerHTML = "0";
+//reset ranking
+ranking.innerHTML = calculateScore(count);
  }
 
-initGame();
+
 //TODO - poprawić restart!
 
 //programining restart option to the repeat button
 btnRepeatGame = document.querySelector(".fa-repeat");
 //event listener to repeat button
 btnRepeatGame.addEventListener("click", function(){
-  const deckToRemove = document.querySelector(".deck");
-  console.log(deckToRemove.childNodes);
-  
+  resetResults();
   initGame();
+  //MAIN PROGRAMME!
+
+  // allCards.forEach(function(card) {
+  //   card.addEventListener('click', respondToTheClick);
+  //   }
+  // );
 });
 
+//function reset all clicked cards!
+function resetResults(){
+  const cardsToRemove = document.querySelectorAll(".card");
+  //console.log(cardsToRemove);
+  cardsToRemove.forEach(function(el){
+    el.remove();
+  });
+}
 
 
-
-//collection of open cards - only current!
-//only 2 cards are open simultaneously!!!!
-//open last cards - only max. two collection [0], [1]
- let currentOpenCards = [];
-
- //collection of all open cards inc. last two plus all matched
- let openCards = [];
- //general counter
- let count = 0;
-
-//show moves, points on the web
- let generalScore = document.querySelector(".moves");
- generalScore.innerHTML = "0";
- 
-
-//show raking on the web
- let ranking = document.querySelector(".stars");
 
 
 /*
@@ -111,44 +147,44 @@ function shuffle(array) {
 
 
 
-//def. all all cards in DOM
-const allCards = document.querySelectorAll(".card");
 
-allCards.forEach(function(card) {
-  card.addEventListener('click', function(evt){
 
-    displayCard(card);
-    addCardToCollection(card);
-    
-    
-    //not click one more time the open cards
-    if (currentOpenCards.length == 2 && !currentOpenCards[0].classList.contains("match") 
-    && !currentOpenCards[1].classList.contains("match")) {
-      if (currentOpenCards[0].innerHTML === currentOpenCards[1].innerHTML){
-        matchCards(currentOpenCards[0], currentOpenCards[1]);
-      } else {
-        setTimeout(function() {
-        hideCards(currentOpenCards[0], currentOpenCards[1]);
-        removeCardFromCollection(card);
-        }, 500);
-      }
-//TODO: 1. nie mozna klikac na juz otwarta kartę
+//need reusable funtion for click for new elements li when restart!:)
+function respondToTheClick(card){
+  //console.log(card.target);
+  displayCard(card.target);
+  addCardToCollection(card.target);
 
+
+  //not click one more time the open cards
+  if (currentOpenCards.length == 2 && !currentOpenCards[0].classList.contains("match")
+  && !currentOpenCards[1].classList.contains("match")) {
+    if (currentOpenCards[0].innerHTML === currentOpenCards[1].innerHTML){
+      matchCards(currentOpenCards[0], currentOpenCards[1]);
+    } else {
+      setTimeout(function() {
+      hideCards(currentOpenCards[0], currentOpenCards[1]);
+      removeCardFromCollection(card.target);
+      }, 500);
     }
-    ranking.innerHTML = calculateScore(count);
-    if ((openCards.length == 15) && (openCards.classList.contains("match"))) {
-      endGame();
-    }
-    //count += 1; - move counter to the function
-    console.log(openCards);
-    console.log(currentOpenCards);
-    console.log(count);
+  //TODO: 1. nie mozna klikac na juz otwarta kartę
 
-    generalScore.innerHTML = dispalyScore();
-  });
+  }
+  ranking.innerHTML = calculateScore(count);
 
-});
 
+  //count += 1; - move counter to the function
+  console.log(openCards);
+  console.log(currentOpenCards);
+  console.log(count);
+
+  generalScore.innerHTML = dispalyScore();
+
+  //condition of the game end
+  if ((openCards.length == 16) /*&& (openCards.classList.contains("match"))*/) {
+    endGame();
+  }
+}
 
 //function to show card
 function displayCard(card){
@@ -199,23 +235,23 @@ function addCard(card){
 //function to calculate score
 function calculateScore(count){
   let HTMLtext;
-  if (count < 20)
+  if (count < 26)
    return HTMLtext=
    `<li><i class="fa fa-star"></i></li>
    <li><i class="fa fa-star"></i></li>
    <li><i class="fa fa-star"></i></li>`;
-  else if (count >=20 && count <32) {
-    return HTMLtext = 
+  else if (count >=26 && count <40) {
+    return HTMLtext =
     `<li><i class="fa fa-star"></i></li>
     <li><i class="fa fa-star"></i></li>
     <li><i class="fa fa-star-o"></i></li>`;
-  } else if (count>=32 && count <50) {
-    return HTMLtext = 
+  } else if (count>=40&& count <56) {
+    return HTMLtext =
     `<li><i class="fa fa-star"></i></li>
     <li><i class="fa fa-star-o"></i></li>
     <li><i class="fa fa-star-o"></i></li>`
   } else {
-    return HTMLtext = 
+    return HTMLtext =
     `<li><i class="fa fa-star-o"></i></li>
     <li><i class="fa fa-star-o"></i></li>
     <li><i class="fa fa-star-o"></i></li>`
@@ -242,7 +278,8 @@ function endGame() {
     And your rating is: ${countStars}
     Are you wish to play again?
     `)) {
-    console.log("koniec gry");
+    resetResults();
+    initGame();
 } else {
     // Do nothing!
 }
