@@ -3,12 +3,63 @@
  */
 
  //initialization --TODO add to new function init!
+ //function to generate cards on the deck with suffling cards
+ function initGame(){
 
- //collection of open cards - only current!
- //only 2 cards are open simultaneously!!!!
+  //definition of all card for the game
+  const cards = ["fa fa-diamond", "fa fa-diamond",
+  "fa fa-paper-plane-o", "fa fa-paper-plane-o",
+  "fa fa-anchor", "fa fa-anchor",
+  "fa fa-bolt", "fa fa-bolt",
+  "fa fa-cube", "fa fa-cube",
+  "fa fa-leaf", "fa fa-leaf",
+  "fa fa-bicycle", "fa fa-bicycle",
+  "fa fa-bomb", "fa fa-bomb"
+];
+
+//function to generate all cards into one element
+function generateCards(){
+  const cardsHTML = document.createDocumentFragment();
+  for (let card of shuffle(cards)){
+    const newElementHTML = document.createElement("li");
+    newElementHTML.classList.add("card");
+    //TODO add unique identifier as we check cards later - compare uniquness
+    newElementHTML.innerHTML = `<i class="${card}">`
+    cardsHTML.appendChild(newElementHTML);
+  }
+  return cardsHTML;
+};
+
+//put cards into HTML
+//def. deck
+
+const cardsDeck = document.querySelector(".deck");
+cardsDeck.appendChild(generateCards());
+
+ }
+
+initGame();
+//TODO - poprawić restart!
+
+//programining restart option to the repeat button
+btnRepeatGame = document.querySelector(".fa-repeat");
+//event listener to repeat button
+btnRepeatGame.addEventListener("click", function(){
+  const deckToRemove = document.querySelector(".deck");
+  console.log(deckToRemove.childNodes);
+  
+  initGame();
+});
+
+
+
+
+//collection of open cards - only current!
+//only 2 cards are open simultaneously!!!!
+//open last cards - only max. two collection [0], [1]
  let currentOpenCards = [];
 
- //collection of all open cards
+ //collection of all open cards inc. last two plus all matched
  let openCards = [];
  //general counter
  let count = 0;
@@ -64,12 +115,15 @@ function shuffle(array) {
 const allCards = document.querySelectorAll(".card");
 
 allCards.forEach(function(card) {
-  card.addEventListener('click', function(){
+  card.addEventListener('click', function(evt){
 
     displayCard(card);
     addCardToCollection(card);
+    
+    
     //not click one more time the open cards
-    if (currentOpenCards.length == 2) {
+    if (currentOpenCards.length == 2 && !currentOpenCards[0].classList.contains("match") 
+    && !currentOpenCards[1].classList.contains("match")) {
       if (currentOpenCards[0].innerHTML === currentOpenCards[1].innerHTML){
         matchCards(currentOpenCards[0], currentOpenCards[1]);
       } else {
@@ -79,19 +133,18 @@ allCards.forEach(function(card) {
         }, 500);
       }
 //TODO: 1. nie mozna klikac na juz otwarta kartę
-//TODO: 2. nie mozna klikac na juz zmatchowane karty
+
     }
     ranking.innerHTML = calculateScore(count);
-    if (openCards.length == 15) {
+    if ((openCards.length == 15) && (openCards.classList.contains("match"))) {
       endGame();
     }
-    count += 1;
+    //count += 1; - move counter to the function
     console.log(openCards);
     console.log(currentOpenCards);
-
     console.log(count);
 
-    generalScore.innerHTML = Number(dispalyScore());
+    generalScore.innerHTML = dispalyScore();
   });
 
 });
@@ -104,8 +157,7 @@ function displayCard(card){
 
 //function to add open card into the array (openCards)
 function addCardToCollection(card){
-  openCards.push(card);
-  currentOpenCards.push(card);
+  return openCards.push(card), currentOpenCards.push(card);
 }
 
 //function to remove open card from the array (openCards)
@@ -130,9 +182,10 @@ function matchCards(card1, card2){
   currentOpenCards=[];
 }
 
+//SCORE & RATING
 function dispalyScore(){
-  let generalScore;
-  return generalScore += 1;
+  count += 1;
+  return count;
 }
   //add open card into listener
  //push card into collection of open cards
