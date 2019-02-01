@@ -4,6 +4,7 @@
 
 * [Instructions](#instructions)
 * [Contributing](#contributing)
+* [Adnotes by Tomasz K] (##adnotes)
 
 ## Instructions
 
@@ -18,3 +19,7 @@ For specific, detailed instructions, look at the project instructions in the [Ud
 This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
 
 For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Adnotes
+
+I made changes in index.html and app.js (in js folder) for providing application to work based on the memory game rules.
