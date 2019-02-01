@@ -1,6 +1,7 @@
 /*
  * Create a list that holds all of your cards
  */
+ //jutro
 //// TODO: optymalizacja naliczania punktów, aby nie mozna bylo klinkac dwa razy w kartę, uporządkować program (funkcje, wywolania, zmienne etc.)
 
  //collection of open cards - only current!
