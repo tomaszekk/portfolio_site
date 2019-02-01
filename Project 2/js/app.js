@@ -1,8 +1,10 @@
-/*
- * Create a list that holds all of your cards
- */
- //jutro
-//// TODO: optymalizacja naliczania punktów, aby nie mozna bylo klinkac dwa razy w kartę, uporządkować program (funkcje, wywolania, zmienne etc.)
+//author: Tomasz Konopka
+//01.02.2019
+
+
+/***********************
+//1// GENERAL DEFINITION, MAIN PROGRAMME (init)
+***********************/
 
  //collection of open cards - only current!
  //only 2 cards are open simultaneously!!!!
@@ -17,15 +19,13 @@
  //show moves, points on the web
   let generalScore = document.querySelector(".moves");
 
-
   //def. all all cards in DOM
-
   let allCards = document.querySelectorAll(".card");
 
  //show raking on the web
   let ranking = document.querySelector(".stars");
 
- //initialization --TODO add to new function init!
+ //INITIALIZATION
  //function to generate cards on the deck with suffling cards
  const cards = ["fa fa-diamond", "fa fa-diamond",
  "fa fa-paper-plane-o", "fa fa-paper-plane-o",
@@ -41,97 +41,85 @@ const cardsDeck = document.querySelector(".deck");
 //start game = default init run functionality
 initGame();
 
-//function definition to initialize the game
-  //generate cards and apply addEventListener
-function initGame(){
-
-  //definition of all card for the game
-
-
-//function to generate all cards into one element
-function generateCards(){
-  const cardsHTML = document.createDocumentFragment();
-  for (let card of shuffle(cards)){
-    const newElementHTML = document.createElement("li");
-    newElementHTML.classList.add("card");
-    //TODO add unique identifier as we check cards later - compare uniquness
-    newElementHTML.innerHTML = `<i class="${card}">`
-    cardsHTML.appendChild(newElementHTML);
-  }
-  return cardsHTML;
-};
-
-//put cards into HTML
-//def. deck
-cardsDeck.appendChild(generateCards());
-
-allCards = document.querySelectorAll(".card");
-
-//MAIN PROGRAMME!
-
-allCards.forEach(function(card) {
-card.addEventListener('click', respondToTheClick);
-}
-);
-
-//reset counter moves
-count = 0;
-generalScore.innerHTML = "0";
-//reset ranking
-ranking.innerHTML = calculateScore(count);
- }
-
-
-//TODO - poprawić restart!
+//objects DOM DEFINITIONS
 
 //programining restart option to the repeat button
 btnRepeatGame = document.querySelector(".fa-repeat");
+
+
+/*********************
+//2 Events Listeners
+*********************/
+
+//I moved addEventListener for a card (li element) to function initGame
+//casue we need add addEvent every time we remove object by RESET or play again!
+//MAIN PROGRAMME!
+//take all cards from HTML - DOM
+// allCards = document.querySelectorAll(".card");
+//
+// //MAIN PROGRAMME! we add event listener just in case we removed
+// allCards.forEach(function(card) {
+//   card.addEventListener('click', respondToTheClick);
+// });
+
+
 //event listener to repeat button
 btnRepeatGame.addEventListener("click", function(){
   resetResults();
   initGame();
   //MAIN PROGRAMME!
-
   // allCards.forEach(function(card) {
   //   card.addEventListener('click', respondToTheClick);
   //   }
   // );
 });
 
-//function reset all clicked cards!
-function resetResults(){
-  const cardsToRemove = document.querySelectorAll(".card");
-  //console.log(cardsToRemove);
-  cardsToRemove.forEach(function(el){
-    el.remove();
-  });
-}
 
 
+/*************************
+//3 Functions' DEFINITIONS
+**************************/
 
-
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
-
-// Shuffle function from http://stackoverflow.com/a/2450976
-function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
-
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
+//function definition to initialize the game
+//generate cards and apply addEventListener
+function initGame(){
+  //definition of all card for the game
+//function to generate all cards into one element
+function generateCards(){
+  const cardsHTML = document.createDocumentFragment();
+  for (let card of shuffle(cards)){
+    const newElementHTML = document.createElement("li");
+    newElementHTML.classList.add("card");
+    newElementHTML.id=Math.random();
+    //TODO add unique identifier as we check cards later - compare uniquness
+    newElementHTML.innerHTML = `<i class="${card}">`
+    //console.log(newElementHTML);
+    cardsHTML.appendChild(newElementHTML);
     }
+  return cardsHTML;
+  };
 
-    return array;
+  //put cards into HTML
+  //def. deck
+  cardsDeck.appendChild(generateCards());
+
+  //take all cards from HTML - DOM
+  allCards = document.querySelectorAll(".card");
+
+  //MAIN PROGRAMME! we add event listener just in case we removed
+  allCards.forEach(function(card) {
+    card.addEventListener("click", respondToTheClick);
+  });
+
+  document.body("onmouseup", function(){
+
+  });
+  //reset counter moves - counting moves and rating
+  count = 0;
+  generalScore.innerHTML = "0";
+  //reset ranking
+  ranking.innerHTML = calculateScore(count);
 }
-
 
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -144,48 +132,68 @@ function shuffle(array) {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
-
-
-
-
-
-
+//MAIN FUNCTION - MAIN PROGRAMME
+//Used for Event listener for click on li (card)
 //need reusable funtion for click for new elements li when restart!:)
 function respondToTheClick(card){
-  //console.log(card.target);
-  displayCard(card.target);
-  addCardToCollection(card.target);
+  //console.log(card.target); -- show object
+  //card.stopPropagation(); - not very helpful
+  //console.log(currentOpenCards[0]);
+  //console.log(card.target.id);
+  //console.log(this.id);
+
+  if (currentOpenCards[0] == null || currentOpenCards[1] == null ||
+    !(currentOpenCards[0].id === currentOpenCards[1].id)){
+    displayCard(card.target);
+    addCardToCollection(card.target);
+    //console.log("-------");
+    //console.log(currentOpenCards[0].id);
+    //console.log(currentOpenCards[1].id);
+    //console.log(this);
+    //not to click card one more time
+    currentOpenCards[0].removeEventListener('click', respondToTheClick);
+
+    //not click one more time the open cards
+    if (currentOpenCards.length == 2 && !currentOpenCards[0].classList.contains("match")
+    && !currentOpenCards[1].classList.contains("match")) {
+      if (currentOpenCards[0].innerHTML === currentOpenCards[1].innerHTML){
+        //if cards match use function to add class match and remove click event listener for cards
+        matchCards(currentOpenCards[0], currentOpenCards[1]);
+        this.removeEventListener('click', respondToTheClick);
 
 
-  //not click one more time the open cards
-  if (currentOpenCards.length == 2 && !currentOpenCards[0].classList.contains("match")
-  && !currentOpenCards[1].classList.contains("match")) {
-    if (currentOpenCards[0].innerHTML === currentOpenCards[1].innerHTML){
-      matchCards(currentOpenCards[0], currentOpenCards[1]);
-    } else {
-      setTimeout(function() {
-      hideCards(currentOpenCards[0], currentOpenCards[1]);
-      removeCardFromCollection(card.target);
-      }, 500);
+      } else {
+        //this.style.cursor ="hide";
+        // document.querySelectorAll(".card").forEach(function(el){
+        //   el.removeEventListener('click', respondToTheClick);
+        // });
+        setTimeout(function() {
+        hideCards(currentOpenCards[0], currentOpenCards[1]);
+        removeCardFromCollection(card.target);
+        ;
+      }, 300);
+        currentOpenCards[0].addEventListener('click', respondToTheClick);
+      }
+      ranking.innerHTML = calculateScore(count);
     }
-  //TODO: 1. nie mozna klikac na juz otwarta kartę
-
+    //currentOpenCards[0].addEventListener('click', respondToTheClick);
+    ranking.innerHTML = calculateScore(count);
+    //count += 1; - move counter to the function
+    //console.log(openCards);
+    //console.log(currentOpenCards);
+    //console.log(count);
   }
-  ranking.innerHTML = calculateScore(count);
-
-
-  //count += 1; - move counter to the function
-  console.log(openCards);
-  console.log(currentOpenCards);
-  console.log(count);
-
   generalScore.innerHTML = dispalyScore();
-
   //condition of the game end
   if ((openCards.length == 16) /*&& (openCards.classList.contains("match"))*/) {
     endGame();
-  }
+  };
 }
+
+
+/****
+helpful functions to the main programme
+*/
 
 //function to show card
 function displayCard(card){
@@ -224,14 +232,6 @@ function dispalyScore(){
   count += 1;
   return count;
 }
-  //add open card into listener
- //push card into collection of open cards
-/*
-function addCard(card){
-  openCards.push(card);
-  currentOpenCards(card);
-};
-*/
 
 //function to calculate score
 function calculateScore(count){
@@ -258,6 +258,33 @@ function calculateScore(count){
     <li><i class="fa fa-star-o"></i></li>`
   }
 }
+/****
+end of helpful functions to the main programme
+*/
+
+
+//function reset all clicked cards!
+function resetResults(){
+  const cardsToRemove = document.querySelectorAll(".card");
+  //console.log(cardsToRemove);
+  cardsToRemove.forEach(function(el){
+    el.remove();
+  });
+}
+
+// Shuffle function from http://stackoverflow.com/a/2450976
+function shuffle(array) {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+
+    while (currentIndex !== 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+    }
+    return array;
+}
 
 //endGame function
 //if all cards matched
@@ -268,7 +295,6 @@ function endGame() {
   // window.open("modal.htm", null, "width=200,height=200,left=300,modal=yes,alwaysRaised=yes", null);
   // alert
   // window.returnValue="end of the game!";
-
   //count stars li elements and convert them into asterix *
   const countStars = (ranking.innerHTML.match(/<i class="fa fa-star">/g) || []).length;
 
@@ -276,7 +302,7 @@ function endGame() {
     (`
     Congratulations! You win the game!
     Your score is:  ${count} moves.
-    And your rating is: ${countStars}
+    And your rating is: ${countStars} star
     Are you wish to play again?
     `)) {
     resetResults();
@@ -294,6 +320,9 @@ function endGame() {
 
 
 
+/*************************************
+OTHER - not used
+**************************************/
 
 /* another metdod to install addEventListener
 document.addEventListener('click', function(el){
