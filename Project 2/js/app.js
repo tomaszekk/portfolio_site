@@ -1,7 +1,14 @@
 /*
  * Create a list that holds all of your cards
  */
-//// TODO: optymalizacja naliczania punktów, aby nie mozna bylo klinkac dwa razy w kartę, uporządkować program (funkcje, wywolania, zmienne etc.)
+
+/*
+//// TODO: optymalizacja naliczania punktów, 
+aby nie mozna bylo klinkac dwa razy w kartę, 
+uporządkować program (funkcje, wywolania, zmienne etc.)
+//TODO add unique identifier as we check cards later - compare uniquness
+  //TODO: 1. nie mozna klikac na juz otwarta kartę
+*/
 
  //collection of open cards - only current!
  //only 2 cards are open simultaneously!!!!
@@ -24,7 +31,7 @@
  //show raking on the web
   let ranking = document.querySelector(".stars");
 
- //initialization --TODO add to new function init!
+ //initialization 
  //function to generate cards on the deck with suffling cards
  const cards = ["fa fa-diamond", "fa fa-diamond",
  "fa fa-paper-plane-o", "fa fa-paper-plane-o",
@@ -53,9 +60,12 @@ function generateCards(){
   for (let card of shuffle(cards)){
     const newElementHTML = document.createElement("li");
     newElementHTML.classList.add("card");
+    newElementHTML.id=Math.random(); 
     //TODO add unique identifier as we check cards later - compare uniquness
     newElementHTML.innerHTML = `<i class="${card}">`
+    console.log(newElementHTML);
     cardsHTML.appendChild(newElementHTML);
+    
   }
   return cardsHTML;
 };
@@ -70,8 +80,7 @@ allCards = document.querySelectorAll(".card");
 
 allCards.forEach(function(card) {
 card.addEventListener('click', respondToTheClick);
-}
-);
+});
 
 //reset counter moves
 count = 0;
@@ -81,7 +90,6 @@ ranking.innerHTML = calculateScore(count);
  }
 
 
-//TODO - poprawić restart!
 
 //programining restart option to the repeat button
 btnRepeatGame = document.querySelector(".fa-repeat");
@@ -151,32 +159,53 @@ function shuffle(array) {
 
 //need reusable funtion for click for new elements li when restart!:)
 function respondToTheClick(card){
-  //console.log(card.target);
-  displayCard(card.target);
-  addCardToCollection(card.target);
-
-
-  //not click one more time the open cards
-  if (currentOpenCards.length == 2 && !currentOpenCards[0].classList.contains("match")
-  && !currentOpenCards[1].classList.contains("match")) {
-    if (currentOpenCards[0].innerHTML === currentOpenCards[1].innerHTML){
-      matchCards(currentOpenCards[0], currentOpenCards[1]);
-    } else {
-      setTimeout(function() {
-      hideCards(currentOpenCards[0], currentOpenCards[1]);
-      removeCardFromCollection(card.target);
-      }, 500);
+  //console.log(card.target); -- show object
+  //card.stopPropagation(); - not very helpful
+  console.log(currentOpenCards[0]);
+  //console.log(card.target.id);
+  //console.log(this.id);
+  
+  if (currentOpenCards[0] == null || currentOpenCards[1] == null || !(currentOpenCards[0].id === currentOpenCards[1].id)){
+    displayCard(card.target);
+    addCardToCollection(card.target);
+    console.log("-------");
+    console.log(currentOpenCards[0].id);
+    //console.log(currentOpenCards[1].id);
+    console.log(this);
+    currentOpenCards[0].removeEventListener('click', respondToTheClick);
+  
+    //not click one more time the open cards
+    if (currentOpenCards.length == 2 && !currentOpenCards[0].classList.contains("match")
+    && !currentOpenCards[1].classList.contains("match")) {
+      if (currentOpenCards[0].innerHTML === currentOpenCards[1].innerHTML){
+        matchCards(currentOpenCards[0], currentOpenCards[1]);
+      } else {
+        //this.style.cursor ="hide";
+        // document.querySelectorAll(".card").forEach(function(el){
+        //   el.removeEventListener('click', respondToTheClick);
+        // });
+        
+        setTimeout(function() {
+        hideCards(currentOpenCards[0], currentOpenCards[1]);
+        removeCardFromCollection(card.target);
+        currentOpenCards[0].addEventListener('click', respondToTheClick);
+        ;
+        }, 500);
+      }
+  
+  
     }
-  //TODO: 1. nie mozna klikac na juz otwarta kartę
-
+   
+    ranking.innerHTML = calculateScore(count);
+  
+  
+    //count += 1; - move counter to the function
+    console.log(openCards);
+    console.log(currentOpenCards);
+    console.log(count);
   }
-  ranking.innerHTML = calculateScore(count);
+  
 
-
-  //count += 1; - move counter to the function
-  console.log(openCards);
-  console.log(currentOpenCards);
-  console.log(count);
 
   generalScore.innerHTML = dispalyScore();
 
