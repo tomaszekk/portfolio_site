@@ -214,14 +214,16 @@ addMarkersToMap = (restaurants = self.restaurants) => {
 ////////////////////////////////////////////////////////////
 
 //for older browser will ship it
-if (navigator.serviceWorker) {
-  navigator.serviceWorker.register('/sw.js')
-  .then(function(reg) {
-    console.log(`Service Worker started!!! @ ${reg.scope}`)
-  }).catch(function(err) {
-    console.log( `/ Service Worker didnt started! + err`);
-  });
-}
+
+//TODO Odkomentować póżniej!!!!!!!!!!!!!
+// if (navigator.serviceWorker) {
+//   navigator.serviceWorker.register('/sw.js')
+//   .then(function(reg) {
+//     console.log(`Service Worker started!!! @ ${reg.scope}`)
+//   }).catch(function(err) {
+//     console.log( `/ Service Worker didnt started! + err`);
+//   });
+// }
 // if ('serviceWorker' in navigator) {
 //   window.addEventListener('load', function() {
 //     navigator.serviceWorker.register('/sw.js').then(function(registration) {

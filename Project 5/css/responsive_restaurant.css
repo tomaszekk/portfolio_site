@@ -1,0 +1,124 @@
+/* content */
+html, body, main {
+  /* height: 100%;
+  width: 100%; */
+}
+
+/* flexbox, grids */
+.inside, #maincontent  {
+  width: 100%;
+  display: flex;
+  /* ToDo  to Conferm is used */
+  flex-wrap: wrap;
+
+}
+
+#maincontent  {
+  position: absolute;
+  top: 120px;
+  left: 0px;
+}
+
+@media screen and (max-width: 800px) {
+  #restaurant-container {
+    width: 100%;
+    order: 2;
+    }
+
+  #map-container {
+    width: 100%;
+    height: 500px;
+    order: 1;
+  }
+
+  #reviews-container {
+    width: 100%;
+    order: 3;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+
+@media screen and (min-width: 800px) {
+
+/* .inside consits of */
+  /*
+  .box-navigation
+  #maincontent
+  #footer
+  */
+
+  /* .box-navigation {
+    width: 100%;
+    order: 0;
+  } */
+
+  /* #maincontent {
+    display: flex;
+    flex-wrap: wrap;
+
+    top: 130px;
+    left: 0px;
+    position: absolute;
+    width: 100%;
+    order: 1;
+
+  } */
+
+  /* #footer {
+    width: 100%;
+    position: absolute;
+    bottom: -300px;
+    left: 0px;
+    order: 10;
+    align-content: flex-end;
+
+  } */
+
+
+  /* maincontent - division!!!
+      #map-container
+      #restaurant-container
+      #reviews-container
+  */
+
+  #restaurant-container {
+    width: 48%;
+    order: 1;
+    }
+
+  #map-container {
+    width: 48%;
+    height: 600px;
+    order: 2;
+  }
+
+  #reviews-container {
+    width: 100%;
+    order: 3;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+
+}
+
+
+@media screen and (min-width: 1000px) {
+  #restaurant-container {
+    width: 31%;
+    order: 1;
+    }
+
+  #map-container {
+    width: 33%;
+    order: 3;
+
+  }
+  #reviews-container {
+    width: 31%;
+    order: 2;
+  }
+
+}

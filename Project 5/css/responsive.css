@@ -1,0 +1,145 @@
+/* content */
+html, body, main {
+  height: 100%;
+  width: 100%;
+}
+
+/* flexbox, grids */
+/* list of containers, box: container, maincontent, box-content, box-map, filter-options, box-restaurants */
+.container, #maincontent, /*.filter-options, .box-content, .box-restaurants,
+.inside, .box-navigation, box-map , #map-container, #restaurant-container, #reviews-container*/ {
+  width: 100%;
+  display: flex;
+  /* ToDo  to Conferm is used */
+  flex-wrap: wrap;
+}
+
+#restaurants-list {
+  /* border: 1px outset #1C6EA4;
+  border-radius: 20px 0px 19px 0px; */
+  /* display: -webkit-flex; */
+  display: flex;
+  /* -webkit-flex-wrap: wrap; */
+  flex-wrap: wrap;
+  /* -webkit-align-content: center; */
+  margin-left: auto;
+  margin-right: auto;
+  /* align-content: center; */
+  justify-content: center;
+}
+
+.box-navigation {
+  vertical-align: middle;
+  text-align: center;
+}
+
+/* .restaurant-img {
+  sizes: "(min-width: 600px) 25vw, (min-width: 500px) 50vw, 100vw"
+} */
+
+/* media queries */
+@media screen and (max-width: 413px ) {
+  nav h1 {
+    margin: auto;
+  	padding-top: 0;
+  }
+
+  .filter-options h2 {
+    font-weight: 400;
+  }
+
+}
+
+@media screen and (min-width: 414px and max-width: 461px) {
+  /* zawinac opcje filtrow */
+  .filter-options {
+    display: inline-block;
+    margin: auto;
+    height: 300px;
+  }
+
+  .filter-options select {
+    margin: 15px 0 20px 0;
+  }
+}
+
+@media screen and (min-width: 580px) {
+
+  #restaurants-list li {
+    width: 380px;
+  }
+
+  .filter-options {
+  	text-align: center;
+    /* padding: 10 130px 0 30px; */
+  }
+
+  .filter-options h2 {
+    display: inline;
+    text-align: center;
+    font-weight: 400;
+
+  }
+
+}
+
+@media screen and (min-width: 800px) {
+
+  #restaurants-list li {
+    width: 280px;
+  }
+
+  /* .restaurant-img {
+    width: 30%;
+    height: 122px;
+    margin-right: 0;
+  } */
+
+  .filter-options {
+    text-align: center;
+    height: 60px;
+    /* margin: auto; */
+  }
+
+  .filter-options h2 {
+    font-weight: 500;
+  }
+
+
+  .filter-options select {
+    margin: 15px 20px 20px 20px;
+  }
+
+
+}
+
+@media screen and (min-width: 1000px) {
+  .box-restaurants {
+    width: 1020px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .box-navigation a {
+    font-weight: 700;
+  }
+  .filter-options h2 {
+
+    font-weight: 700;
+
+  }
+  /* .filter-options select {
+    margin: 15px 25px 0 25px;
+  } */
+  /* .restaurant-img {
+    width: 150px;
+    height: 122px;
+     margin-right: 0;
+  }
+  */
+
+  #restaurants-list li {
+    width: 240px;
+  }
+
+}
