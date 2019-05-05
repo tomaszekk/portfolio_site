@@ -1,33 +1,54 @@
-# Mobile Web Specialist Certification Course
+# Front End Web Developer
 ---
 #### _Three Stage Course Material Project - Restaurant Reviews_
 
-## Project Overview: Stage 1
+## Project Overview:
 
-For the **Restaurant Reviews** projects, you will incrementally convert a static webpage to a mobile-ready web application. In **Stage One**, you will take a static design that lacks accessibility and convert the design to be responsive on different sized displays and accessible for screen reader use. You will also add a service worker to begin the process of creating a seamless offline experience for your users.
+For the **Restaurant Reviews** projects I converted a static webpage to a mobile-ready web application, provide caching for offline and implement web accessibility.
 
 ### Specification
 
-You have been provided the code for a restaurant reviews website. The code has a lot of issues. It’s barely usable on a desktop browser, much less a mobile device. It also doesn’t include any standard accessibility features, and it doesn’t work offline at all. Your job is to update the code to resolve these issues while still maintaining the included functionality.
+Udacity has provided the code for a restaurant reviews website. Based on the info:
+*The code has a lot of issues. It’s barely usable on a desktop browser, much less a mobile device. It also doesn’t include any standard accessibility features, and it doesn’t work offline at all. Your job is to update the code to resolve these issues while still maintaining the included functionality.*
 
-### Project Rubric
+My role as developer is provide:
+- MapBox API integration with the app
+- convert static page to a responsive webpage
+- implement web accessibility features
+- provide ServiceWorker for cache page for offline purporses
 
-Your project will be evaluated by a Udacity code reviewer according to the [Restaurant Reviews project rubric](https://review.udacity.com/#!/rubrics/1090/view). Please review for detailed project requirements. The rubric should be a resource you refer to periodically to make sure your project meets specifications.
 
-### What do I do from here?
+### Installation
 
-1. In this folder, start up a simple HTTP server to serve up the site files on your local computer. Python has some simple tools to do this, and you don't even need to know Python. For most people, it's already installed on your computer.
+1. Download or clone this project from my repository.
+
+2. You have to serve a up simple HTTP server for the site files on your local computer. Recommend is Python.
 
     * In a terminal, check the version of Python you have: `python -V`. If you have Python 2.x, spin up the server with `python -m SimpleHTTPServer 8000` (or some other port, if port 8000 is already in use.) For Python 3.x, you can use `python3 -m http.server 8000`. If you don't have Python installed, navigate to Python's [website](https://www.python.org/) to download and install the software.
    * Note -  For Windows systems, Python 3.x is installed as `python` by default. To start a Python 3.x server, you can simply enter `python -m http.server 8000`.
-2. With your server running, visit the site: `http://localhost:8000`, and look around for a bit to see what the current experience looks like.
-3. Explore the provided code, and start making a plan to implement the required features in three areas: responsive design, accessibility and offline use.
-4. Write code to implement the updates to get this site on its way to being a mobile-ready website.
 
-## Leaflet.js and Mapbox:
+2. With your server running go to the site: `http://localhost:8000`.
 
-This repository uses [leafletjs](https://leafletjs.com/) with [Mapbox](https://www.mapbox.com/). You need to replace `<your MAPBOX API KEY HERE>` with a token from [Mapbox](https://www.mapbox.com/). Mapbox is free to use, and does not require any payment information.
+3. To use a map you need a Mapbox and Leaflet.js libraries. See *Annotation to Leaflet.js and Mapbox*.
 
-### Note about ES6
 
-Most of the code in this project has been written to the ES6 JavaScript specification for compatibility with modern web browsers and future-proofing JavaScript code. As much as possible, try to maintain use of ES6 in any additional JavaScript you write.
+### Folders structure
+
+The main file is index.html as you run app.
+Each restaurant has its own page - restarurant.html which is dynamically load from a DB.
+The DB is a file in folder: "/data/restaurants.json".
+All styling is in "/CSS" folder. The main file is "Style.css" which provide all styling. For RWD purposes there are to files: "responsive.css" for "index.html" and "responsive_restaurant.css" for restaurants' page.
+
+All logic is "/js" folder apart one file "sw.js" which is in main folder as Python doesnt provided secure layer HTTPS for ServiceWorker:((
+"Main.css" is for serving data from DBHelper, manages "index.html" and registers ServiceWorker (SW).
+"restaurant_info.js"  is for serving restaurant web HTML.
+"dbhelper.js" is for data - providing data, filtering, fetching and generally provide data in a specific way.
+
+
+## Annotation to Leaflet.js and Mapbox:
+
+This repository uses [leafletjs](https://leafletjs.com/) with [Mapbox](https://www.mapbox.com/). To run functionality you used`<your MAPBOX API KEY HERE>` with a token from [Mapbox](https://www.mapbox.com/). Mapbox is free to use.
+
+### Note about Author
+
+The page was made by Tomasz Konopka, May 2019.

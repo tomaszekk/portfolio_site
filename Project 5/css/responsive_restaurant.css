@@ -18,8 +18,16 @@ html, body, main {
   top: 120px;
   left: 0px;
 }
+@media screen and (max-width:415px){
+  nav h1 {
+    margin: auto;
+  	padding-top: 0;
+  }
 
+}
 @media screen and (max-width: 800px) {
+
+
   #restaurant-container {
     width: 100%;
     order: 2;
@@ -41,45 +49,6 @@ html, body, main {
 
 
 @media screen and (min-width: 800px) {
-
-/* .inside consits of */
-  /*
-  .box-navigation
-  #maincontent
-  #footer
-  */
-
-  /* .box-navigation {
-    width: 100%;
-    order: 0;
-  } */
-
-  /* #maincontent {
-    display: flex;
-    flex-wrap: wrap;
-
-    top: 130px;
-    left: 0px;
-    position: absolute;
-    width: 100%;
-    order: 1;
-
-  } */
-
-  /* #footer {
-    width: 100%;
-
-    order: 10;
-    align-content: flex-end;
-
-  } */
-
-
-  /* maincontent - division!!!
-      #map-container
-      #restaurant-container
-      #reviews-container
-  */
 
   #restaurant-container {
     width: 48%;
@@ -117,6 +86,9 @@ html, body, main {
   #reviews-container {
     width: 30%;
     order: 2;
+  }
+  nav h1 {
+    font-weight: 800;
   }
 
 }
