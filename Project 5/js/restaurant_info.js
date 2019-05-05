@@ -110,6 +110,9 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
     const row = document.createElement('tr');
 
     const day = document.createElement('td');
+    // TK add class
+    // day.setAttribute("class", "restarurant-hours-days");
+    day.className = "restarurant-hours-days";
     day.innerHTML = key;
     row.appendChild(day);
 
@@ -150,18 +153,26 @@ createReviewHTML = (review) => {
   const li = document.createElement('li');
   const name = document.createElement('p');
   name.innerHTML = review.name;
+  // TK add class for reviews
+  name.className="reviews-el-name";
   li.appendChild(name);
 
   const date = document.createElement('p');
   date.innerHTML = review.date;
+  // TK add class for reviews
+  date.className="reviews-el-date";
   li.appendChild(date);
 
   const rating = document.createElement('p');
   rating.innerHTML = `Rating: ${review.rating}`;
+  // TK add class for reviews
+  rating.className="reviews-el-rating";
   li.appendChild(rating);
 
   const comments = document.createElement('p');
   comments.innerHTML = review.comments;
+  // TK add class for reviews
+  comments.className="reviews-el-comments";
   li.appendChild(comments);
 
   return li;
